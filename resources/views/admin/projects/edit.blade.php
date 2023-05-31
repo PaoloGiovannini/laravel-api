@@ -22,6 +22,7 @@
 
                 @if ($project->image)
                 <img class="img-thumbnail my-img d-block" src="{{asset('storage/' . $project->image)}}" alt="{{$project->title}}"/>
+                <div id="my-btn" class="btn btn-danger">Delete</div>
                 @endif
                 
                 <input type="file" class="form-control @error('image') is-invalid @enderror" id="image" name="image">
@@ -78,6 +79,11 @@
             </div>
 
             <button type="submit" class="btn btn-primary">Salva</button>
+        </form>
+
+        <form id="my-form" action="{{route('admin.projects.deleteImage', ['slug' => $project->slug])}}" method="POST">
+            @csrf
+            @method('DELETE')
         </form>
     </div>
 @endsection

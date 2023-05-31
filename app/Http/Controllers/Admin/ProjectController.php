@@ -128,4 +128,17 @@ class ProjectController extends Controller
         $project->delete();
         return redirect()->route('admin.projects.index');
     }
+    public function deleteImage($slug) {
+
+        $project = Project::where('slug', $slug)->firstOrFail();
+
+        if ($project->image) {
+            Storage::delete($project->image);
+            $project->image = null;
+            $project->save();
+        }
+
+        return redirect()->route('admin.projects.edit', $project->slug);
+
+    }
 }
